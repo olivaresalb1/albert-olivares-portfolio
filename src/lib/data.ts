@@ -61,21 +61,6 @@ export const PORTFOLIO_DATA: PortfolioData = {
       tags: ["React", "TypeScript", "Redux", "Jotai", "Next.js", "Tailwind CSS"],
     },
     {
-      id: "fafsa-engine",
-      title: "FAFSA Application Engine",
-      company: "Open Source / Independent",
-      role: "Architect",
-      timeframe: "Recent",
-      description:
-        "Multi-step form architecture built with React 19, demonstrating complex conditional logic and accessibility.",
-      highlights: [
-        "Engineered complex conditional branching engine for financial aid data collection.",
-        "Achieved 100% WCAG 2.1 AA accessibility compliance and full keyboard navigation.",
-        "Optimized render cycles for fast step-by-step form execution.",
-      ],
-      tags: ["React 19", "TypeScript", "Tailwind CSS", "A11y", "Jest"],
-    },
-    {
       id: "ljg-brand-platforms",
       title: "Brand Platforms & Interactive Applications",
       company: "LJG Partners",
