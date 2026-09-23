@@ -21,6 +21,11 @@ export interface ImpactMetric {
   description: string;
 }
 
+export interface ProjectLiveLink {
+  label: string;
+  url: string;
+}
+
 export interface FeaturedProject {
   id: string;
   title: string;
@@ -31,14 +36,16 @@ export interface FeaturedProject {
   highlights: string[];
   tags: string[];
   liveUrl?: string;
+  liveUrls?: ProjectLiveLink[];
   githubUrl?: string;
 }
 
 export type SkillCategory =
-  | "Frontend"
+  | "Frontend Architecture"
   | "Backend & Architecture"
   | "DevOps & Cloud"
-  | "AI & Tooling";
+  | "Agentic Engineering"
+  | "Leadership & Delivery";
 
 export interface SkillItem {
   id: string;
@@ -46,8 +53,15 @@ export interface SkillItem {
   category: SkillCategory;
 }
 
+export interface EducationInfo {
+  degree: string;
+  institution: string;
+  location: string;
+}
+
 export interface PortfolioData {
   profile: ProfileInfo;
+  education: EducationInfo;
   metrics: ImpactMetric[];
   projects: FeaturedProject[];
   skills: SkillItem[];

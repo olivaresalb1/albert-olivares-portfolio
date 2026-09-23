@@ -6,13 +6,13 @@ export const ProjectShowcase: React.FC = () => {
   const { projects } = PORTFOLIO_DATA;
 
   return (
-    <section aria-label="Featured Projects" className="w-full space-y-6">
+    <section aria-label="Featured Projects & Experience" className="w-full space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-          Featured Engineering Projects
+          Featured Engineering Experience &amp; Projects
         </h2>
         <span className="text-xs text-[var(--text-muted)] font-medium">
-          {projects.length} Highlights
+          {projects.length} Engineering Roles
         </span>
       </div>
 
@@ -71,27 +71,43 @@ export const ProjectShowcase: React.FC = () => {
                 ))}
               </div>
 
-              {(project.liveUrl || project.githubUrl) && (
-                <div className="flex items-center gap-3 pt-1">
-                  {project.liveUrl && (
+              {/* Live Link Badges */}
+              {(project.liveUrls || project.liveUrl || project.githubUrl) && (
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  {project.liveUrls ? (
+                    project.liveUrls.map((link) => (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit live site for ${link.label}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/20 hover:bg-[var(--accent-cyan)]/20 hover:border-[var(--accent-cyan)]/40 transition-colors"
+                      >
+                        <span>{link.label}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ))
+                  ) : project.liveUrl ? (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit live site for ${project.title}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent-cyan)] hover:underline"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/20 hover:bg-[var(--accent-cyan)]/20 transition-colors"
                     >
                       <span>Live Site</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3 h-3" />
                     </a>
-                  )}
+                  ) : null}
+
                   {project.githubUrl && (
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View GitHub repository for ${project.title}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-muted)] hover:text-white"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-muted)] hover:text-white transition-colors"
                     >
                       <span>Source Code</span>
                       <Github className="w-3.5 h-3.5" />
