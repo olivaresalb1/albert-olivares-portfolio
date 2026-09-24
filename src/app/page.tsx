@@ -2,6 +2,7 @@ import { Header } from "@/components/sections/Header";
 import { ImpactMetrics } from "@/components/sections/ImpactMetrics";
 import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
 import { SkillsCloud } from "@/components/sections/SkillsCloud";
+import { Education } from "@/components/sections/Education";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <ImpactMetrics />
       <ProjectShowcase />
       <SkillsCloud />
+      <Education />
     </main>
   );
 }

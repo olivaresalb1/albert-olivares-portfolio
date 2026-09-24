@@ -30,6 +30,7 @@ export interface FeaturedProject {
   id: string;
   title: string;
   company: string;
+  industry?: string;
   role: string;
   timeframe: string;
   description: string;
@@ -41,10 +42,10 @@ export interface FeaturedProject {
 }
 
 export type SkillCategory =
-  | "Frontend Architecture"
-  | "Backend & Architecture"
-  | "DevOps & Cloud"
+  | "Frontend & UI"
+  | "Backend & Data"
   | "Agentic Engineering"
+  | "Quality & DevOps"
   | "Leadership & Delivery";
 
 export interface SkillItem {
@@ -55,6 +56,7 @@ export interface SkillItem {
 
 export interface EducationInfo {
   degree: string;
+  date: string;
   institution: string;
   location: string;
 }

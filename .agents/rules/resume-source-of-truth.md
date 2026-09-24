@@ -1,31 +1,39 @@
 ---
 trigger: always_on
-description: Mandatory source of truth for Albert Olivares's official resume and live portfolio links
+description: Mandatory source of truth for Albert Olivares's official resume, skills, and experience
 ---
 
-# Resume Source of Truth (FE + FS)
+# Resume Source of Truth (Official FE + FS)
 
 All copy, experience entries, impact metrics, technical skills, and educational qualifications presented in the portfolio MUST accurately reflect Albert Olivares's official background in reverse chronological order:
 
 ## Profile & Contact
 - **Name**: Albert Olivares
-- **Title**: Senior Software Engineer & Frontend / Full Stack Architect
-- **Location**: Oceanside / San Diego, CA
+- **Title**: Senior Software Engineer
+- **Location**: Oceanside, CA
 - **Contact**: 619-777-6784 | olivaresalb1@gmail.com | linkedin.com/in/albertolivares | github.com/albertolivares
-- **Education**: B.S. in Computer Science | San Diego State University (SDSU)
+- **Education**: B.S. in Computer Engineering (May 2010) | San Diego State University (SDSU)
 
 ## Work Experience (Reverse Chronological Order)
-1. **Ascent Funding** (San Diego, CA) — Lead Full Stack / Frontend Engineer | 2021 – 2024
-   - Modernized enterprise financial platforms into decoupled React/TypeScript architecture with Node.js services.
-   - Slashed client latency by 40% via Redux/Jotai state tuning; optimized PostgreSQL queries & indexing for a 50% conversion lift.
-   - Led 8-developer team, conducting architecture RFCs, code reviews, and mentoring in Claude Code and Cursor.
-   - Automated DevSecOps with Docker, GitHub Actions, AWS, achieving 80%+ test coverage (Jest, Cypress).
+1. **Candeeland Wonderpark** (Carlsbad, CA) — Principal Consultant | Dec 2025 – Present
+   - Multi-system integration connecting Google Workspace, Wix, Squarespace, POS Roller, and middleware Patch.
+   - Frontend web performance, core digital infrastructure, and cloud-adjacent digital presence.
+
+2. **Ascent Funding** (San Diego, CA - Remote) — Senior Software Engineer (Lead Frontend) | May 2018 – Sep 2025
+   - Migrated legacy monolithic PHP/jQuery to decoupled React/TypeScript architecture backed by Laravel/PHP/Golang/Node.js backends.
+   - State management: Redux for predictable global enterprise data flows + Jotai for atomic, component-level state orchestration; resolved critical rendering bottlenecks and optimized high-traffic financial pipelines (-40% load times, +50% conversion).
+   - Cut JavaScript bundle size by 30%, load times by 40%, user conversion +50%.
+   - Led 8-developer team; mentored 2 junior engineers through career progression.
+   - Scaled reusable component library across 6+ web apps (-40% design handoff time).
+   - Git hooks, GitHub Actions SOC2 compliance, release engineering & branch promotions.
    - *Live Portals*:
      - College Application: `https://college.ascentfunding.com/application`
      - Bootcamp Application: `https://bootcamp.ascentfunding.com/application`
 
-2. **LJG Partners** (San Diego, CA) — Full Stack Web Developer | 2011 – 2020
-   - Engineered dynamic web applications, custom API endpoints, CMS solutions, JavaScript, PHP, MySQL, and HTML5 Canvas.
+3. **LJG Partners** (San Diego, CA - Remote) — Web Developer | Sep 2015 – Feb 2018
+   - Launched 10+ web apps using React, Laravel, PHP, PostgreSQL, MySQL, Ruby on Rails, Swagger RESTful APIs.
+   - Immersive WebGL/React VR apartment viewer (+20% acquisition/retention).
+   - Internal real estate social network (media sharing, comment systems, nominations).
    - *Live Client Websites*:
      - Park Place Irvine: `http://parkplaceirvine.com/`
      - One Culver: `http://oneculver.com/`
@@ -34,12 +42,18 @@ All copy, experience entries, impact metrics, technical skills, and educational 
      - Esplanade Phoenix: `http://esplanadephx.com/`
      - Lerner: `http://lerner.com/`
 
-3. **Celgene Corporation / Veterans Medical Research Foundation (VMRF)** (San Diego, CA) — Java Programmer & Web Systems Developer | 2009 – 2011
-   - Enterprise request management & clinical data portals using Java, Spring/Hibernate, JavaScript, and MySQL/PostgreSQL.
+4. **FireKing International** (San Diego, CA) — Web Developer | May 2014 – Jul 2015
+   - IoT software development: WiFi-enabled control panel for smart cash safe management.
 
-## Skill Categories
-- **Frontend Architecture**: React, Next.js, TypeScript, JavaScript (ES6+), Redux, Jotai (Atomic State), Tailwind CSS, SCSS, HTML5, CSS3, Component Libraries, Design Systems, Core Web Vitals, Responsive Design, WCAG Accessibility.
-- **Backend & Distributed Systems**: Node.js, Express, RESTful API Design, GraphQL, Microservices / SOA, Relational Schema Modeling (PostgreSQL, MySQL), SQL, Java / Spring Foundations, Redis Caching, Golang, PHP.
-- **DevOps, Cloud & Tooling**: Docker, AWS (S3, SQS, SNS), DevSecOps & CI/CD Pipelines, GitHub Actions, Git, Automated Testing (Jest, Vitest, React Testing Library, Cypress, Playwright), Observability (Datadog, Mezmo, PostHog), Webpack, Vite.
-- **Agentic Engineering**: Practical AI Engineering (Claude Code, Cursor, Codex, GitHub Copilot), LLM Application Workflows & Guardrails, AI-Assisted Prototyping, Automated Test Suite Generation, Context-Aware Code Auditing.
-- **Leadership & Delivery**: Full-Stack Architecture, Technical Mentorship, Sprint Delivery, Architecture RFCs & Design Reviews, 0-to-1 Product Ownership, Agile/Scrum.
+5. **Veterans Medical Research Foundation (VMRF)** (San Diego, CA) — Programmer Analyst | Mar 2011 – May 2014
+   - End-to-end modernization of research portal from legacy PHP to Laravel with Bootstrap UI; lab record tools (-30% entry errors, +50% analysis speed).
+
+6. **Celgene Corporation** (San Diego, CA) — Java Programmer | Sep 2010 – Feb 2011
+   - Automated compound request system using Java/J2EE, Hibernate, and MySQL across 50+ active projects.
+
+## Technical Skill Categories
+- **Frontend & UI**: React, TypeScript, JavaScript (ES6+), Redux, Jotai (Atomic State), React Native, WebGL, Bootstrap, Tailwind CSS, SASS, Responsive Design, Component Libraries, Design Systems, SPAs, Core Web Vitals, WCAG Accessibility.
+- **Backend & Data**: Node.js, Golang, PHP, Laravel, Ruby on Rails, RESTful API Development, Distributed Systems, Relational Schema Modeling (PostgreSQL, MySQL), ORM, Redis Caching.
+- **Agentic Engineering**: Practical AI Engineering (Anthropic Claude / Claude Code, Codex, Cursor, GitHub Copilot), AI-Assisted Prototyping, Automated Test Suite Generation, Context-Aware Code Auditing.
+- **Quality & DevOps**: Automated Testing (Jest, Vitest, React Testing Library, Cypress, Playwright), A/B Testing, Feature Flags, AWS, Docker, Git Hooks, GitHub Actions, CI/CD Automation, Mezmo, GTM, Microsoft Clarity, PostHog, Webpack, Vite.
+- **Leadership**: End-to-End Feature Ownership, Engineering Leadership, Technical Mentorship, Frontend Architecture, Agile/Scrum, Code Review, UI/UX Strategy, Technical Feasibility Analysis.

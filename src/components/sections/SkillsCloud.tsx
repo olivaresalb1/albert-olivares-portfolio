@@ -3,10 +3,10 @@ import { PORTFOLIO_DATA } from "@/lib/data";
 import { SkillCategory } from "@/types/portfolio";
 
 const categories: SkillCategory[] = [
-  "Frontend Architecture",
-  "Backend & Architecture",
-  "DevOps & Cloud",
+  "Frontend & UI",
+  "Backend & Data",
   "Agentic Engineering",
+  "Quality & DevOps",
   "Leadership & Delivery",
 ];
 
