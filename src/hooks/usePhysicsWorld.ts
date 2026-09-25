@@ -11,6 +11,7 @@ interface RegisteredElement {
 
 export function usePhysicsWorld() {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [gravity, setGravityState] = useState<{ x: number; y: number }>({ x: 0, y: 1 });
   const engineRef = useRef<Matter.Engine | null>(null);
   const runnerRef = useRef<number | null>(null);
   const elementsMapRef = useRef<Map<string, RegisteredElement>>(new Map());
@@ -66,8 +67,44 @@ export function usePhysicsWorld() {
       delete item.body;
     });
 
+    setGravityState({ x: 0, y: 1 });
     setIsActive(false);
   }, []);
+
+  const setGravity = useCallback((x: number, y: number) => {
+    if (engineRef.current) {
+      engineRef.current.gravity.x = x;
+      engineRef.current.gravity.y = y;
+      setGravityState({ x, y });
+    }
+  }, []);
+
+  const setZeroG = useCallback(() => {
+    if (engineRef.current) {
+      engineRef.current.gravity.x = 0;
+      engineRef.current.gravity.y = 0;
+      setGravityState({ x: 0, y: 0 });
+
+      elementsMapRef.current.forEach((item) => {
+        if (item.body) {
+          const forceMagnitude = 0.005 * item.body.mass;
+          const angle = Math.random() * Math.PI * 2;
+          Matter.Body.applyForce(item.body, item.body.position, {
+            x: Math.cos(angle) * forceMagnitude,
+            y: Math.sin(angle) * forceMagnitude,
+          });
+        }
+      });
+    }
+  }, []);
+
+  const setNormalGravity = useCallback(() => {
+    setGravity(0, 1);
+  }, [setGravity]);
+
+  const invertGravity = useCallback(() => {
+    setGravity(0, -1);
+  }, [setGravity]);
 
   const startPhysics = useCallback(() => {
     if (isActive || typeof window === "undefined") return;
@@ -77,6 +114,7 @@ export function usePhysicsWorld() {
       gravity: { x: 0, y: 1, scale: 0.001 },
     });
     engineRef.current = engine;
+    setGravityState({ x: 0, y: 1 });
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -222,6 +260,11 @@ export function usePhysicsWorld() {
     registerElement,
     startPhysics,
     resetPhysics,
+    setGravity,
+    setZeroG,
+    setNormalGravity,
+    invertGravity,
+    gravity,
     isActive,
     engineRef,
   };

@@ -4,6 +4,7 @@ import { ImpactMetrics } from "@/components/sections/ImpactMetrics";
 import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
 import { SkillsCloud } from "@/components/sections/SkillsCloud";
 import { Education } from "@/components/sections/Education";
+import { ControlsOverlay } from "@/components/ControlsOverlay";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <SkillsCloud />
         <Education />
       </main>
+      <ControlsOverlay />
     </PhysicsProvider>
   );
 }

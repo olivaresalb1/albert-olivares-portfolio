@@ -7,6 +7,11 @@ interface PhysicsContextType {
   registerElement: (id: string, element: HTMLElement | null) => void;
   startPhysics: () => void;
   resetPhysics: () => void;
+  setGravity: (x: number, y: number) => void;
+  setZeroG: () => void;
+  setNormalGravity: () => void;
+  invertGravity: () => void;
+  gravity: { x: number; y: number };
   isActive: boolean;
   engineRef: React.RefObject<import("matter-js").Engine | null>;
 }
