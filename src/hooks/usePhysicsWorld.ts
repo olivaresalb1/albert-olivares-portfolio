@@ -11,12 +11,24 @@ interface RegisteredElement {
 
 export function usePhysicsWorld() {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isRecruiterMode, setIsRecruiterMode] = useState<boolean>(false);
   const [gravity, setGravityState] = useState<{ x: number; y: number }>({ x: 0, y: 1 });
   const engineRef = useRef<Matter.Engine | null>(null);
   const runnerRef = useRef<number | null>(null);
   const elementsMapRef = useRef<Map<string, RegisteredElement>>(new Map());
   const boundariesRef = useRef<Matter.Body[] | null>(null);
   const mouseConstraintRef = useRef<Matter.MouseConstraint | null>(null);
+  const isPausedRef = useRef<boolean>(false);
+
+  // Check prefers-reduced-motion on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (motionQuery.matches) {
+        setIsRecruiterMode(true);
+      }
+    }
+  }, []);
 
   const registerElement = useCallback(
     (id: string, element: HTMLElement | null) => {
@@ -52,6 +64,7 @@ export function usePhysicsWorld() {
     }
 
     boundariesRef.current = null;
+    isPausedRef.current = false;
 
     elementsMapRef.current.forEach((item) => {
       const el = item.element;
@@ -69,6 +82,27 @@ export function usePhysicsWorld() {
 
     setGravityState({ x: 0, y: 1 });
     setIsActive(false);
+  }, []);
+
+  const toggleRecruiterMode = useCallback(() => {
+    setIsRecruiterMode((prev) => {
+      const nextState = !prev;
+      if (nextState) {
+        resetPhysics();
+        if (typeof window !== "undefined") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+      return nextState;
+    });
+  }, [resetPhysics]);
+
+  const pausePhysics = useCallback(() => {
+    isPausedRef.current = true;
+  }, []);
+
+  const resumePhysics = useCallback(() => {
+    isPausedRef.current = false;
   }, []);
 
   const setGravity = useCallback((x: number, y: number) => {
@@ -107,7 +141,7 @@ export function usePhysicsWorld() {
   }, [setGravity]);
 
   const startPhysics = useCallback(() => {
-    if (isActive || typeof window === "undefined") return;
+    if (isActive || isRecruiterMode || typeof window === "undefined") return;
 
     // 1. Initialize Engine
     const engine = Matter.Engine.create({
@@ -115,6 +149,7 @@ export function usePhysicsWorld() {
     });
     engineRef.current = engine;
     setGravityState({ x: 0, y: 1 });
+    isPausedRef.current = false;
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -232,23 +267,25 @@ export function usePhysicsWorld() {
     const tick = () => {
       if (!engineRef.current) return;
 
-      Matter.Engine.update(engineRef.current, 1000 / 60);
+      if (!isPausedRef.current) {
+        Matter.Engine.update(engineRef.current, 1000 / 60);
 
-      elementsMapRef.current.forEach((item) => {
-        if (!item.body) return;
-        const { body, element, width, height } = item;
-        const x = body.position.x - width / 2;
-        const y = body.position.y - height / 2;
-        const angle = body.angle;
+        elementsMapRef.current.forEach((item) => {
+          if (!item.body) return;
+          const { body, element, width, height } = item;
+          const x = body.position.x - width / 2;
+          const y = body.position.y - height / 2;
+          const angle = body.angle;
 
-        element.style.transform = `translate3d(${x}px, ${y}px, 0px) rotate(${angle}rad)`;
-      });
+          element.style.transform = `translate3d(${x}px, ${y}px, 0px) rotate(${angle}rad)`;
+        });
+      }
 
       runnerRef.current = requestAnimationFrame(tick);
     };
 
     runnerRef.current = requestAnimationFrame(tick);
-  }, [isActive]);
+  }, [isActive, isRecruiterMode]);
 
   useEffect(() => {
     return () => {
@@ -260,12 +297,16 @@ export function usePhysicsWorld() {
     registerElement,
     startPhysics,
     resetPhysics,
+    pausePhysics,
+    resumePhysics,
     setGravity,
     setZeroG,
     setNormalGravity,
     invertGravity,
     gravity,
     isActive,
+    isRecruiterMode,
+    toggleRecruiterMode,
     engineRef,
   };
 }
