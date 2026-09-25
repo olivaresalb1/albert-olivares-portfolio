@@ -1,9 +1,21 @@
+"use client";
+
 import React from "react";
-import { Mail, Phone, Linkedin, Github, Sparkles, MapPin } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Sparkles, RotateCcw, MapPin } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/data";
+import { usePhysics } from "@/context/PhysicsContext";
 
 export const Header: React.FC = () => {
   const { profile } = PORTFOLIO_DATA;
+  const { startPhysics, resetPhysics, isActive } = usePhysics();
+
+  const handleTogglePhysics = () => {
+    if (isActive) {
+      resetPhysics();
+    } else {
+      startPhysics();
+    }
+  };
 
   return (
     <header className="relative w-full bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-3xl p-8 sm:p-10 backdrop-blur-md transition-all duration-300 physics-ready shadow-2xl">
@@ -71,16 +83,29 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Action Button Placeholder */}
+        {/* Physics Activation Button */}
         <div className="shrink-0 self-start">
           <button
             type="button"
-            disabled
-            aria-disabled="true"
-            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/30 opacity-80 cursor-not-allowed transition-all shadow-inner"
+            onClick={handleTogglePhysics}
+            aria-label={isActive ? "Reset Layout" : "Activate Zero Gravity physics sandbox"}
+            className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 shadow-lg cursor-pointer ${
+              isActive
+                ? "bg-[var(--accent-emerald)]/15 text-[var(--accent-emerald)] border border-[var(--accent-emerald)]/40 hover:bg-[var(--accent-emerald)]/25 hover:border-[var(--accent-emerald)]/60 shadow-[0_0_15px_rgba(52,211,153,0.2)]"
+                : "bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/30 hover:bg-[var(--accent-cyan)]/25 hover:border-[var(--accent-cyan)]/50 shadow-[0_0_15px_rgba(56,189,248,0.15)]"
+            }`}
           >
-            <Sparkles className="w-4 h-4 text-[var(--accent-cyan)] animate-pulse" />
-            <span>Zero Gravity</span>
+            {isActive ? (
+              <>
+                <RotateCcw className="w-4 h-4 text-[var(--accent-emerald)] animate-spin-once" />
+                <span>Reset Layout</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4 text-[var(--accent-cyan)] animate-pulse" />
+                <span>Zero Gravity</span>
+              </>
+            )}
           </button>
         </div>
       </div>

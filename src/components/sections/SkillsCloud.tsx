@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { PORTFOLIO_DATA } from "@/lib/data";
 import { SkillCategory } from "@/types/portfolio";
+import { PhysicsElement } from "@/components/PhysicsElement";
 
 const categories: SkillCategory[] = [
   "Frontend & UI",
@@ -43,12 +46,11 @@ export const SkillsCloud: React.FC = () => {
 
               <div className="flex flex-wrap gap-2">
                 {categorySkills.map((skill) => (
-                  <div
-                    key={skill.id}
-                    className="physics-ready inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-800/60 text-[var(--text-primary)] border border-white/10 hover:border-[var(--accent-cyan)]/40 hover:bg-gray-800/90 transition-all cursor-default select-none shadow-sm"
-                  >
-                    {skill.name}
-                  </div>
+                  <PhysicsElement key={skill.id} id={`skill-${skill.id}`}>
+                    <div className="physics-ready inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-800/60 text-[var(--text-primary)] border border-white/10 hover:border-[var(--accent-cyan)]/40 hover:bg-gray-800/90 transition-all cursor-default select-none shadow-sm">
+                      {skill.name}
+                    </div>
+                  </PhysicsElement>
                 ))}
               </div>
             </div>
