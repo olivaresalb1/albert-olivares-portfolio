@@ -232,6 +232,13 @@ export function usePhysicsWorld() {
 
     // 4. Initialize Pointer Drag-and-Throw Mouse Constraint
     const mouse = Matter.Mouse.create(document.body);
+    const mouseInternal = mouse as unknown as { mousewheel?: EventListener };
+    if (mouseInternal.mousewheel) {
+      mouse.element.removeEventListener("mousewheel", mouseInternal.mousewheel);
+      mouse.element.removeEventListener("DOMMouseScroll", mouseInternal.mousewheel);
+      mouse.element.removeEventListener("wheel", mouseInternal.mousewheel);
+    }
+
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse,
       constraint: {
@@ -286,6 +293,77 @@ export function usePhysicsWorld() {
 
     runnerRef.current = requestAnimationFrame(tick);
   }, [isActive, isRecruiterMode]);
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const handleResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!engineRef.current || !boundariesRef.current) return;
+
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const boundaries = boundariesRef.current;
+
+        // 1. Update positions of static boundary bodies
+        if (boundaries[0]) Matter.Body.setPosition(boundaries[0], { x: w / 2, y: h + 30 });
+        if (boundaries[1]) Matter.Body.setPosition(boundaries[1], { x: -30, y: h / 2 });
+        if (boundaries[2]) Matter.Body.setPosition(boundaries[2], { x: w + 30, y: h / 2 });
+        if (boundaries[3]) Matter.Body.setPosition(boundaries[3], { x: w / 2, y: -60 });
+
+        // 2. Clamp dynamic rigid bodies inside new viewport bounds
+        const margin = 30;
+        elementsMapRef.current.forEach((item) => {
+          if (!item.body) return;
+          const body = item.body;
+          let newX = body.position.x;
+          let newY = body.position.y;
+          let changed = false;
+
+          if (newX < margin) {
+            newX = margin;
+            changed = true;
+          } else if (newX > w - margin) {
+            newX = w - margin;
+            changed = true;
+          }
+
+          if (newY < margin) {
+            newY = margin;
+            changed = true;
+          } else if (newY > h - margin) {
+            newY = h - margin;
+            changed = true;
+          }
+
+          if (changed) {
+            Matter.Body.setPosition(body, { x: newX, y: newY });
+            Matter.Body.setVelocity(body, { x: 0, y: 0 });
+          }
+        });
+      }, 100);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isPausedRef.current = true;
+      } else {
+        isPausedRef.current = false;
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isActive]);
 
   useEffect(() => {
     return () => {

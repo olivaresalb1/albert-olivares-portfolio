@@ -144,14 +144,14 @@ export const Header: React.FC = () => {
             <span>{isRecruiterMode ? "Recruiter Mode: ON" : "Recruiter Mode"}</span>
           </button>
 
-          {/* Download Resume Direct Action */}
+          {/* Request Resume via Email Action */}
           <a
             href="mailto:olivaresalb1@gmail.com?subject=Albert%20Olivares%20-%20Resume%20Request"
-            aria-label="Request or download Albert Olivares official resume"
+            aria-label="Request Albert Olivares official resume via email"
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold text-[var(--text-muted)] hover:text-white bg-white/5 hover:bg-white/10 border border-[var(--border-subtle)] transition-colors"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Contact for PDF Resume</span>
+            <Mail className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+            <span>Request PDF Resume</span>
           </a>
         </div>
       </div>
