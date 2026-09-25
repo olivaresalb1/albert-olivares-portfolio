@@ -143,6 +143,9 @@ export function usePhysicsWorld() {
   const startPhysics = useCallback(() => {
     if (isActive || isRecruiterMode || typeof window === "undefined") return;
 
+    // Scroll to top instantly so all elements match top viewport coordinates
+    window.scrollTo({ top: 0, behavior: "instant" });
+
     // 1. Initialize Engine
     const engine = Matter.Engine.create({
       gravity: { x: 0, y: 1, scale: 0.001 },
@@ -154,7 +157,8 @@ export function usePhysicsWorld() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    // 2. Create Static Boundary Walls
+    // 2. Create Thick Static Boundary Walls (500px thick to prevent tunneling)
+    const wallThickness = 500;
     const wallOptions: Matter.IBodyDefinition = {
       isStatic: true,
       restitution: 0.4,
@@ -163,30 +167,30 @@ export function usePhysicsWorld() {
 
     const floor = Matter.Bodies.rectangle(
       windowWidth / 2,
-      windowHeight + 30,
+      windowHeight + wallThickness / 2,
       windowWidth * 2,
-      60,
+      wallThickness,
       wallOptions
     );
     const leftWall = Matter.Bodies.rectangle(
-      -30,
+      -wallThickness / 2,
       windowHeight / 2,
-      60,
+      wallThickness,
       windowHeight * 2,
       wallOptions
     );
     const rightWall = Matter.Bodies.rectangle(
-      windowWidth + 30,
+      windowWidth + wallThickness / 2,
       windowHeight / 2,
-      60,
+      wallThickness,
       windowHeight * 2,
       wallOptions
     );
     const ceiling = Matter.Bodies.rectangle(
       windowWidth / 2,
-      -60,
+      -wallThickness / 2,
       windowWidth * 2,
-      60,
+      wallThickness,
       wallOptions
     );
 
@@ -202,9 +206,19 @@ export function usePhysicsWorld() {
       item.width = rect.width;
       item.height = rect.height;
 
+      // Clamp initial center position inside viewport bounds
+      const initialX = Math.max(
+        rect.width / 2,
+        Math.min(windowWidth - rect.width / 2, rect.left + rect.width / 2)
+      );
+      const initialY = Math.max(
+        rect.height / 2,
+        Math.min(windowHeight - rect.height / 2, rect.top + rect.height / 2)
+      );
+
       const body = Matter.Bodies.rectangle(
-        rect.left + rect.width / 2,
-        rect.top + rect.height / 2,
+        initialX,
+        initialY,
         rect.width,
         rect.height,
         {
@@ -280,6 +294,41 @@ export function usePhysicsWorld() {
         elementsMapRef.current.forEach((item) => {
           if (!item.body) return;
           const { body, element, width, height } = item;
+
+          // Safety viewport boundary clamp
+          const minX = width / 2;
+          const maxX = window.innerWidth - width / 2;
+          const minY = height / 2;
+          const maxY = window.innerHeight - height / 2;
+
+          let posX = body.position.x;
+          let posY = body.position.y;
+          let clamped = false;
+
+          if (posX < minX) {
+            posX = minX;
+            clamped = true;
+          } else if (posX > maxX) {
+            posX = maxX;
+            clamped = true;
+          }
+
+          if (posY < minY) {
+            posY = minY;
+            clamped = true;
+          } else if (posY > maxY) {
+            posY = maxY;
+            clamped = true;
+          }
+
+          if (clamped) {
+            Matter.Body.setPosition(body, { x: posX, y: posY });
+            Matter.Body.setVelocity(body, {
+              x: body.velocity.x * -0.2,
+              y: body.velocity.y * -0.2,
+            });
+          }
+
           const x = body.position.x - width / 2;
           const y = body.position.y - height / 2;
           const angle = body.angle;

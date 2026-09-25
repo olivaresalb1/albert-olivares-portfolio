@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="relative w-full bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-3xl p-8 sm:p-10 backdrop-blur-md transition-all duration-300 physics-ready shadow-2xl space-y-6">
+    <header className="relative w-full bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-3xl p-8 sm:p-10 backdrop-blur-md transition-colors duration-300 shadow-2xl space-y-6">
       {/* Recruiter Mode Active Banner Badge */}
       {isRecruiterMode && (
         <div className="flex items-center justify-between gap-3 px-4 py-2 rounded-2xl bg-[var(--accent-emerald)]/10 text-[var(--accent-emerald)] border border-[var(--accent-emerald)]/30 text-xs font-semibold animate-in fade-in duration-300">
@@ -123,7 +123,7 @@ export const Header: React.FC = () => {
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-[var(--accent-cyan)] animate-pulse" />
+                <Sparkles className="w-4 h-4 text-[var(--accent-cyan)]" />
                 <span>Zero Gravity</span>
               </>
             )}
