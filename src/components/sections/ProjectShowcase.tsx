@@ -32,15 +32,15 @@ export const ProjectShowcase: React.FC = () => {
               >
                 <div className="space-y-4">
                   {/* Header Info */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--text-muted)]">
+                  <div className="space-y-1 text-xs">
                     <div className="flex items-center gap-1.5 font-medium text-[var(--accent-cyan)]">
-                      <Briefcase className="w-3.5 h-3.5" />
+                      <Briefcase className="w-3.5 h-3.5 shrink-0" />
                       <span>{project.company}</span>
                       <span className="text-white/20">•</span>
                       <span>{project.role}</span>
                     </div>
                     <div className="flex items-center gap-1 font-mono text-[11px] text-[var(--text-muted)]">
-                      <Calendar className="w-3 h-3" />
+                      <Calendar className="w-3 h-3 shrink-0" />
                       <span>{project.timeframe}</span>
                     </div>
                   </div>

@@ -22,9 +22,6 @@ export const SkillsCloud: React.FC = () => {
         <h2 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
           Technical Skills &amp; Competencies
         </h2>
-        <span className="text-xs text-[var(--text-muted)] font-medium">
-          {skills.length} Competencies
-        </span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
