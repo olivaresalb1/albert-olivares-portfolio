@@ -15,6 +15,7 @@ export function usePhysicsWorld() {
   const runnerRef = useRef<number | null>(null);
   const elementsMapRef = useRef<Map<string, RegisteredElement>>(new Map());
   const boundariesRef = useRef<Matter.Body[] | null>(null);
+  const mouseConstraintRef = useRef<Matter.MouseConstraint | null>(null);
 
   const registerElement = useCallback(
     (id: string, element: HTMLElement | null) => {
@@ -38,6 +39,11 @@ export function usePhysicsWorld() {
       runnerRef.current = null;
     }
 
+    if (mouseConstraintRef.current) {
+      Matter.Mouse.clearSourceEvents(mouseConstraintRef.current.mouse);
+      mouseConstraintRef.current = null;
+    }
+
     if (engineRef.current) {
       Matter.World.clear(engineRef.current.world, false);
       Matter.Engine.clear(engineRef.current);
@@ -56,6 +62,7 @@ export function usePhysicsWorld() {
       el.style.zIndex = "";
       el.style.margin = "";
       el.style.transform = "";
+      el.classList.remove("is-dragging", "is-physics-active");
       delete item.body;
     });
 
@@ -128,7 +135,7 @@ export function usePhysicsWorld() {
         rect.width,
         rect.height,
         {
-          restitution: 0.35,
+          restitution: 0.45,
           friction: 0.1,
           frictionAir: 0.015,
         }
@@ -145,13 +152,45 @@ export function usePhysicsWorld() {
       el.style.left = "0px";
       el.style.zIndex = "30";
       el.style.margin = "0px";
+      el.classList.add("is-physics-active");
 
       Matter.Composite.add(engine.world, body);
     });
 
+    // 4. Initialize Pointer Drag-and-Throw Mouse Constraint
+    const mouse = Matter.Mouse.create(document.body);
+    const mouseConstraint = Matter.MouseConstraint.create(engine, {
+      mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false },
+      },
+    });
+    mouseConstraintRef.current = mouseConstraint;
+
+    Matter.Events.on(mouseConstraint, "startdrag", (event) => {
+      const targetBody = (event as Matter.IEvent<Matter.MouseConstraint> & { body: Matter.Body }).body;
+      elementsMapRef.current.forEach((item) => {
+        if (item.body === targetBody) {
+          item.element.classList.add("is-dragging");
+        }
+      });
+    });
+
+    Matter.Events.on(mouseConstraint, "enddrag", (event) => {
+      const targetBody = (event as Matter.IEvent<Matter.MouseConstraint> & { body: Matter.Body }).body;
+      elementsMapRef.current.forEach((item) => {
+        if (item.body === targetBody) {
+          item.element.classList.remove("is-dragging");
+        }
+      });
+    });
+
+    Matter.Composite.add(engine.world, mouseConstraint);
+
     setIsActive(true);
 
-    // 4. 60 FPS Render Tick Loop via requestAnimationFrame
+    // 5. 60 FPS Render Tick Loop via requestAnimationFrame
     const tick = () => {
       if (!engineRef.current) return;
 

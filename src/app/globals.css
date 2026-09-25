@@ -28,4 +28,15 @@ body {
     will-change: transform;
     user-select: none;
   }
+
+  .physics-ready.is-physics-active {
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .physics-ready.is-dragging {
+    cursor: grabbing !important;
+    box-shadow: 0 25px 50px -12px rgba(56, 189, 248, 0.35);
+    z-index: 50 !important;
+  }
 }
