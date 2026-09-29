@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Mail, Phone, Linkedin, Github, Sparkles, RotateCcw, MapPin, FileText, CheckCircle2, Download } from "lucide-react";
+import Image from "next/image";
+import { Mail, Phone, Linkedin, Github, Sparkles, RotateCcw, FileText, CheckCircle2 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/data";
 import { usePhysics } from "@/context/PhysicsContext";
 
@@ -37,20 +38,27 @@ export const Header: React.FC = () => {
       )}
 
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-        {/* Profile Details */}
+        {/* Profile Details & Headshot Avatar */}
         <div className="space-y-4 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/20">
-            <MapPin className="w-3.5 h-3.5" />
-            {profile.location}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
+            <Image
+              src="/albert-olivares.jpg"
+              alt="Albert Olivares"
+              width={144}
+              height={144}
+              priority
+              className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl object-cover border border-white/10 hover:border-[var(--accent-cyan)]/30 transition-colors shadow-2xl shrink-0"
+            />
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)]">
+                {profile.name}
+              </h1>
+
+              <p className="text-lg sm:text-xl font-medium text-[var(--accent-emerald)]">
+                {profile.title}
+              </p>
+            </div>
           </div>
-
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)]">
-            {profile.name}
-          </h1>
-
-          <p className="text-lg sm:text-xl font-medium text-[var(--accent-emerald)]">
-            {profile.title}
-          </p>
 
           <p className="text-base text-[var(--text-muted)] leading-relaxed">
             {profile.summary}

@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     "Node.js",
     "Laravel",
     "San Diego",
-    "Oceanside",
     "Matter.js",
     "Web Architecture",
   ],
