@@ -9,7 +9,6 @@ export const PORTFOLIO_DATA: PortfolioData = {
       "Senior Software Engineer with 15 years of experience building performant, user-centric web applications, scalable full-stack systems, and leading frontend architecture initiatives. Proven technical leader who established organization-wide standards, guided engineers through career progression, and partnered with product teams to drive 50% conversion lifts and 40% performance gains.",
     contact: {
       email: "olivaresalb1@gmail.com",
-      phone: "619-777-6784",
       linkedIn: "https://linkedin.com/in/albertolivares",
       gitHub: "https://github.com/olivaresalb1",
     },

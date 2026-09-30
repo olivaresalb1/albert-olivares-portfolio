@@ -1,6 +1,6 @@
 export interface ContactLinks {
   email: string;
-  phone: string;
+  phone?: string;
   linkedIn: string;
   gitHub: string;
   resumePath?: string;

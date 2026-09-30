@@ -75,14 +75,16 @@ export const Header: React.FC = () => {
               <span>{profile.contact.email}</span>
             </a>
 
-            <a
-              href={`tel:${profile.contact.phone}`}
-              aria-label={`Call ${profile.contact.phone}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium bg-white/5 hover:bg-white/10 text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors"
-            >
-              <Phone className="w-4 h-4 text-[var(--accent-emerald)]" />
-              <span>{profile.contact.phone}</span>
-            </a>
+            {profile.contact.phone && (
+              <a
+                href={`tel:${profile.contact.phone}`}
+                aria-label={`Call ${profile.contact.phone}`}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium bg-white/5 hover:bg-white/10 text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] transition-colors"
+              >
+                <Phone className="w-4 h-4 text-[var(--accent-emerald)]" />
+                <span>{profile.contact.phone}</span>
+              </a>
+            )}
 
             <a
               href={profile.contact.linkedIn}
