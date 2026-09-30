@@ -112,7 +112,6 @@ albert-olivares-portfolio/
 
 ## Author & Contact
 
-**Albert Olivares** — *Senior Software Engineer & Lead Frontend Architect*  
-- **Email**: olivaresalb1@gmail.com  
-- **LinkedIn**: [linkedin.com/in/albertolivares](https://linkedin.com/in/albertolivares)  
-- **GitHub**: [github.com/albertolivares](https://github.com/albertolivares)
+**Albert Olivares** — *Senior Software Engineer & Lead Frontend Architect*
+- **Email**: olivaresalb1@gmail.com
+- **LinkedIn**: [linkedin.com/in/albertolivares](https://linkedin.com/in/albertolivares)
