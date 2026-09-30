@@ -68,10 +68,12 @@ export const PhysicsElement: React.FC<PhysicsElementProps> = ({
     }
   };
 
+  const isProject = id.startsWith("project-");
+
   return (
     <div
       ref={ref}
-      className={`physics-ready [&.is-physics-active[data-physics-id^="project-"]]:w-[110px] [&.is-physics-active[data-physics-id^="project-"]]:h-[110px] [&.is-physics-active[data-physics-id^="project-"]]:sm:w-[135px] [&.is-physics-active[data-physics-id^="project-"]]:sm:h-[135px] ${className}`}
+      className={`physics-ready ${isProject ? "physics-project-card" : ""} ${className}`.trim()}
       data-physics-id={id}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

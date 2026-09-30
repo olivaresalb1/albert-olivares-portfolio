@@ -24,7 +24,7 @@ export const ImpactMetrics: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric) => (
           <PhysicsElement key={metric.id} id={`metric-${metric.id}`}>
-            <div className="group relative bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-2xl p-6 backdrop-blur-md transition-all duration-300 physics-ready shadow-lg flex flex-col justify-between hover:translate-y-[-2px] h-[215px] group-[.is-physics-active]:h-auto group-[.is-physics-active]:p-4 group-[.is-physics-active]:gap-2">
+            <div className="group metric-card">
               {/* 1. Header Row (Label + Icon) */}
               <div className="flex items-center justify-between h-8">
                 <span className="text-xs font-semibold tracking-wider text-[var(--text-muted)] uppercase">
@@ -43,7 +43,7 @@ export const ImpactMetrics: React.FC = () => {
               </div>
 
               {/* 3. Divider Line & Description Footer (Hidden during physics mode) */}
-              <div className="pt-3 border-t border-[var(--border-subtle)] group-[.is-physics-active]:hidden">
+              <div className="pt-3 border-t border-[var(--border-subtle)] physics-hide">
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed line-clamp-3">
                   {metric.description}
                 </p>

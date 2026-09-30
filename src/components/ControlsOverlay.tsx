@@ -79,11 +79,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => setZeroG()}
           title="Zero Gravity Drift"
           aria-label="Activate Zero Gravity drift"
-          className={`inline-flex items-center justify-center gap-1 sm:gap-1.5 px-3 py-2 rounded-full transition-all cursor-pointer font-medium min-h-[38px] active:scale-95 ${
-            isZeroG
-              ? "bg-[var(--accent-cyan)] text-gray-950 font-bold shadow-[0_0_10px_rgba(56,189,248,0.5)]"
-              : "bg-white/10 hover:bg-white/20 active:bg-white/30 text-white"
-          }`}
+          className={`hud-btn gap-1 sm:gap-1.5 px-3 py-2 ${isZeroG ? "hud-btn-active" : "hud-btn-inactive"}`}
         >
           <Orbit className="w-4 h-4 shrink-0" />
           <span className="text-xs font-semibold">Zero-G</span>
@@ -95,11 +91,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => setGravity(0, -1)}
           title="Flip Gravity Up"
           aria-label="Set gravity upward"
-          className={`inline-flex items-center justify-center p-2.5 rounded-full transition-all cursor-pointer min-w-[38px] min-h-[38px] active:scale-95 ${
-            isUp
-              ? "bg-[var(--accent-cyan)] text-gray-950 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
-              : "bg-white/10 hover:bg-white/20 active:bg-white/30 text-white"
-          }`}
+          className={`hud-btn p-2.5 min-w-[38px] ${isUp ? "hud-btn-active" : "hud-btn-inactive"}`}
         >
           <ArrowUp className="w-4 h-4 shrink-0" />
         </button>
@@ -110,11 +102,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => setGravity(0, 1)}
           title="Normal Gravity Down"
           aria-label="Set gravity downward"
-          className={`inline-flex items-center justify-center p-2.5 rounded-full transition-all cursor-pointer min-w-[38px] min-h-[38px] active:scale-95 ${
-            isDown
-              ? "bg-[var(--accent-cyan)] text-gray-950 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
-              : "bg-white/10 hover:bg-white/20 active:bg-white/30 text-white"
-          }`}
+          className={`hud-btn p-2.5 min-w-[38px] ${isDown ? "hud-btn-active" : "hud-btn-inactive"}`}
         >
           <ArrowDown className="w-4 h-4 shrink-0" />
         </button>
@@ -125,11 +113,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => setGravity(-1, 0)}
           title="Pull Left"
           aria-label="Set gravity left"
-          className={`inline-flex items-center justify-center p-2.5 rounded-full transition-all cursor-pointer min-w-[38px] min-h-[38px] active:scale-95 ${
-            isLeft
-              ? "bg-[var(--accent-cyan)] text-gray-950 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
-              : "bg-white/10 hover:bg-white/20 active:bg-white/30 text-white"
-          }`}
+          className={`hud-btn p-2.5 min-w-[38px] ${isLeft ? "hud-btn-active" : "hud-btn-inactive"}`}
         >
           <ArrowLeft className="w-4 h-4 shrink-0" />
         </button>
@@ -140,11 +124,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => setGravity(1, 0)}
           title="Pull Right"
           aria-label="Set gravity right"
-          className={`inline-flex items-center justify-center p-2.5 rounded-full transition-all cursor-pointer min-w-[38px] min-h-[38px] active:scale-95 ${
-            isRight
-              ? "bg-[var(--accent-cyan)] text-gray-950 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
-              : "bg-white/10 hover:bg-white/20 active:bg-white/30 text-white"
-          }`}
+          className={`hud-btn p-2.5 min-w-[38px] ${isRight ? "hud-btn-active" : "hud-btn-inactive"}`}
         >
           <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
@@ -157,7 +137,7 @@ export const ControlsOverlay: React.FC = () => {
           onClick={() => resetPhysics()}
           title="Reset Physics & Restore Grid Layout"
           aria-label="Reset layout"
-          className="inline-flex items-center justify-center gap-1 sm:gap-1.5 px-3 py-2 rounded-full bg-[var(--accent-emerald)]/20 text-[var(--accent-emerald)] border border-[var(--accent-emerald)]/40 hover:bg-[var(--accent-emerald)]/30 active:scale-95 transition-all cursor-pointer font-semibold min-h-[38px]"
+          className="hud-btn gap-1 sm:gap-1.5 px-3 py-2 bg-[var(--accent-emerald)]/20 text-[var(--accent-emerald)] border border-[var(--accent-emerald)]/40 hover:bg-[var(--accent-emerald)]/30 font-semibold"
         >
           <RotateCcw className="w-4 h-4 shrink-0" />
           <span className="text-xs font-semibold">Reset</span>

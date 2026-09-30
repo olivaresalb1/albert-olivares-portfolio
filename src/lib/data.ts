@@ -52,22 +52,6 @@ export const PORTFOLIO_DATA: PortfolioData = {
   ],
   projects: [
     {
-      id: "candeeland-wonderpark",
-      title: "Multi-System Architecture & Digital Infrastructure",
-      company: "Candeeland Wonderpark",
-      industry: "Entertainment",
-      role: "Principal Consultant",
-      timeframe: "Dec 2025 – Present",
-      description:
-        "Architected multi-system integrations and optimized digital web infrastructure across commercial enterprise platforms.",
-      highlights: [
-        "Architected robust integrations connecting Google Workspace, web platforms (Wix, Squarespace), POS systems (Roller), and marketing middleware (Patch).",
-        "Audited and optimized frontend web performance and core digital presence, ensuring high availability, reliability, and maximum uptime.",
-        "Managed integrated technology stack guaranteeing seamless daily operations.",
-      ],
-      tags: ["System Architecture", "API Integration", "Wix", "Squarespace", "Google Workspace", "Performance"],
-    },
-    {
       id: "ascent-funding",
       title: "Full-Stack Financial Application Platform",
       company: "Ascent Funding",
