@@ -14,13 +14,10 @@ export const ProjectShowcase: React.FC = () => {
   return (
     <>
       <section aria-label="Featured Projects & Experience" className="w-full space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4">
           <h2 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
             Featured Engineering Experience &amp; Projects
           </h2>
-          <span className="text-xs text-[var(--text-muted)] font-medium">
-            {projects.length} Engineering Roles (Click card for deep technical architecture)
-          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -28,11 +25,11 @@ export const ProjectShowcase: React.FC = () => {
             <PhysicsElement key={project.id} id={`project-${project.id}`}>
               <article
                 onClick={() => setSelectedProject(project)}
-                className="group relative bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-3xl p-8 backdrop-blur-md transition-all duration-300 physics-ready shadow-xl flex flex-col justify-between h-full cursor-pointer hover:shadow-2xl hover:-translate-y-0.5"
+                className="group relative bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-3xl p-6 sm:p-8 backdrop-blur-md transition-all duration-300 physics-ready shadow-xl flex flex-col justify-between h-full cursor-pointer hover:shadow-2xl hover:-translate-y-0.5 [.is-physics-active_&]:w-full [.is-physics-active_&]:h-full [.is-physics-active_&]:p-2.5 [.is-physics-active_&]:sm:p-4 [.is-physics-active_&]:rounded-2xl [.is-physics-active_&]:justify-center [.is-physics-active_&]:items-center [.is-physics-active_&]:text-center [.is-physics-active_&]:overflow-hidden"
               >
-                <div className="space-y-4">
-                  {/* Header Info */}
-                  <div className="space-y-1 text-xs">
+                <div className="space-y-3 [.is-physics-active_&]:space-y-0 [.is-physics-active_&]:flex [.is-physics-active_&]:items-center [.is-physics-active_&]:justify-center [.is-physics-active_&]:h-full [.is-physics-active_&]:w-full">
+                  {/* Header Info (Hidden during physics mode) */}
+                  <div className="space-y-1 text-xs [.is-physics-active_&]:hidden">
                     <div className="flex items-center gap-1.5 font-medium text-[var(--accent-cyan)]">
                       <Briefcase className="w-3.5 h-3.5 shrink-0" />
                       <span>{project.company}</span>
@@ -45,16 +42,18 @@ export const ProjectShowcase: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
+                  {/* Title (ONLY element displayed during physics mode) */}
+                  <h3 className="text-lg sm:text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors [.is-physics-active_&]:text-[11px] [.is-physics-active_&]:sm:text-xs [.is-physics-active_&]:font-semibold [.is-physics-active_&]:leading-tight">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+
+                  {/* Description (Hidden during physics mode) */}
+                  <p className="text-sm text-[var(--text-muted)] leading-relaxed [.is-physics-active_&]:hidden">
                     {project.description}
                   </p>
 
-                  {/* Bullet Highlights */}
-                  <ul className="space-y-2 pt-2 text-xs text-[var(--text-primary)]">
+                  {/* Bullet Highlights (Hidden during physics mode) */}
+                  <ul className="space-y-2 pt-2 text-xs text-[var(--text-primary)] [.is-physics-active_&]:hidden">
                     {project.highlights.map((highlight, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="shrink-0 mt-0.5 p-0.5 rounded-full bg-[var(--accent-emerald)]/10 text-[var(--accent-emerald)]">
@@ -66,8 +65,8 @@ export const ProjectShowcase: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Footer Stack Tags & External Links */}
-                <div className="pt-6 mt-6 border-t border-[var(--border-subtle)] space-y-4">
+                {/* Footer Stack Tags & External Links (Hidden during physics mode) */}
+                <div className="pt-6 mt-6 border-t border-[var(--border-subtle)] space-y-4 [.is-physics-active_&]:hidden">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
                       <span

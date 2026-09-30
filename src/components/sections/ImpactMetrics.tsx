@@ -24,7 +24,7 @@ export const ImpactMetrics: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric) => (
           <PhysicsElement key={metric.id} id={`metric-${metric.id}`}>
-            <div className="group relative bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-2xl p-6 backdrop-blur-md transition-all duration-300 physics-ready shadow-lg flex flex-col justify-between hover:translate-y-[-2px] h-[215px]">
+            <div className="group relative bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-hover)] rounded-2xl p-6 backdrop-blur-md transition-all duration-300 physics-ready shadow-lg flex flex-col justify-between hover:translate-y-[-2px] h-[215px] group-[.is-physics-active]:h-auto group-[.is-physics-active]:p-4 group-[.is-physics-active]:gap-2">
               {/* 1. Header Row (Label + Icon) */}
               <div className="flex items-center justify-between h-8">
                 <span className="text-xs font-semibold tracking-wider text-[var(--text-muted)] uppercase">
@@ -38,12 +38,12 @@ export const ImpactMetrics: React.FC = () => {
               </div>
 
               {/* 2. Metric Value (Big Number) */}
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors whitespace-nowrap my-auto">
+              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors whitespace-nowrap my-auto group-[.is-physics-active]:text-xl group-[.is-physics-active]:my-0">
                 {metric.value}
               </div>
 
-              {/* 3. Divider Line & Description Footer */}
-              <div className="pt-3 border-t border-[var(--border-subtle)]">
+              {/* 3. Divider Line & Description Footer (Hidden during physics mode) */}
+              <div className="pt-3 border-t border-[var(--border-subtle)] group-[.is-physics-active]:hidden">
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed line-clamp-3">
                   {metric.description}
                 </p>

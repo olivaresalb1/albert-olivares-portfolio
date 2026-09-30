@@ -71,7 +71,7 @@ export const PhysicsElement: React.FC<PhysicsElementProps> = ({
   return (
     <div
       ref={ref}
-      className={`physics-ready ${className}`}
+      className={`physics-ready [&.is-physics-active[data-physics-id^="project-"]]:w-[110px] [&.is-physics-active[data-physics-id^="project-"]]:h-[110px] [&.is-physics-active[data-physics-id^="project-"]]:sm:w-[135px] [&.is-physics-active[data-physics-id^="project-"]]:sm:h-[135px] ${className}`}
       data-physics-id={id}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

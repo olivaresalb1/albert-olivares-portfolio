@@ -53,7 +53,33 @@ export function usePhysicsWorld() {
     }
 
     if (mouseConstraintRef.current) {
-      Matter.Mouse.clearSourceEvents(mouseConstraintRef.current.mouse);
+      const mouse = mouseConstraintRef.current.mouse as Matter.Mouse & {
+        mousemove?: EventListener;
+        mousedown?: EventListener;
+        mouseup?: EventListener;
+        mousewheel?: EventListener;
+      };
+      const el = mouse.element || document.body;
+      if (el) {
+        if (mouse.mousemove) {
+          el.removeEventListener("mousemove", mouse.mousemove);
+          el.removeEventListener("touchmove", mouse.mousemove);
+        }
+        if (mouse.mousedown) {
+          el.removeEventListener("mousedown", mouse.mousedown);
+          el.removeEventListener("touchstart", mouse.mousedown);
+        }
+        if (mouse.mouseup) {
+          el.removeEventListener("mouseup", mouse.mouseup);
+          el.removeEventListener("touchend", mouse.mouseup);
+        }
+        if (mouse.mousewheel) {
+          el.removeEventListener("wheel", mouse.mousewheel);
+          el.removeEventListener("mousewheel", mouse.mousewheel);
+          el.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+        }
+      }
+      Matter.Mouse.clearSourceEvents(mouse);
       mouseConstraintRef.current = null;
     }
 
@@ -79,6 +105,14 @@ export function usePhysicsWorld() {
       el.classList.remove("is-dragging", "is-physics-active");
       delete item.body;
     });
+
+    if (typeof document !== "undefined") {
+      document.body.style.touchAction = "";
+      document.body.style.overflow = "";
+      document.body.style.userSelect = "";
+      document.documentElement.style.touchAction = "";
+      document.documentElement.style.overflow = "";
+    }
 
     setGravityState({ x: 0, y: 1 });
     setIsActive(false);
@@ -199,9 +233,22 @@ export function usePhysicsWorld() {
     Matter.Composite.add(engine.world, boundaries);
 
     // 3. Map Registered DOM Elements to Rigid Bodies
+    const isMobile = window.innerWidth < 640;
+
     elementsMapRef.current.forEach((item) => {
-      const rect = item.element.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
+      // On mobile viewports (< 640px), strictly only activate project cards in physics mode
+      if (isMobile && !item.id.startsWith("project-")) {
+        return;
+      }
+
+      const el = item.element;
+      el.classList.add("is-physics-active");
+
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        el.classList.remove("is-physics-active");
+        return;
+      }
 
       item.width = rect.width;
       item.height = rect.height;
@@ -231,7 +278,6 @@ export function usePhysicsWorld() {
       item.body = body;
 
       // Lock DOM element rendering size and switch to fixed positioning
-      const el = item.element;
       el.style.width = `${rect.width}px`;
       el.style.height = `${rect.height}px`;
       el.style.position = "fixed";
@@ -239,7 +285,6 @@ export function usePhysicsWorld() {
       el.style.left = "0px";
       el.style.zIndex = "30";
       el.style.margin = "0px";
-      el.classList.add("is-physics-active");
 
       Matter.Composite.add(engine.world, body);
     });
