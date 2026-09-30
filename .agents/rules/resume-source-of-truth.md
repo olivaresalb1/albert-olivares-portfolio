@@ -10,8 +10,7 @@ All copy, experience entries, impact metrics, technical skills, and educational 
 ## Profile & Contact
 - **Name**: Albert Olivares
 - **Title**: Senior Software Engineer
-- **Location**: Oceanside, CA
-- **Contact**: 619-777-6784 | olivaresalb1@gmail.com | linkedin.com/in/albertolivares | github.com/albertolivares
+- **Contact**: olivaresalb1@gmail.com | linkedin.com/in/albertolivares | github.com/albertolivares
 - **Education**: B.S. in Computer Engineering (May 2010) | San Diego State University (SDSU)
 
 ## Work Experience (Reverse Chronological Order)
